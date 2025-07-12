@@ -1,5 +1,3 @@
-# Getting Started with Create React App
-
 # Doctor-Patient-Appointment-System
 
 The Online Medical Appointment System allows patients to select a desired doctor appointment date through the online platform. 
