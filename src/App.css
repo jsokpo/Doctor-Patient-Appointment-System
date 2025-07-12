@@ -13,6 +13,18 @@
   }
 }
 
+/* Example media query */
+@media (max-width: 768px) {
+  .dashboard-container {
+    flex-direction: column;
+    padding: 1rem;
+  }
+
+  .sidebar {
+    display: none; /* Optionally hide on mobile */
+  }
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -22,6 +34,25 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+}
+
+/* App.css */
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', sans-serif;
+  background-color: #f9f9f9;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.App {
+  max-width: 480px; /* Mimic a mobile screen width */
+  margin: 0 auto;
+  box-shadow: 0 0 8px rgba(0,0,0,0.1);
+  background-color: #fff;
+  min-height: 100vh;
+  overflow-x: hidden;
+  border-radius: 12px;
 }
 
 .App-link {
