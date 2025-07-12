@@ -1,5 +1,65 @@
 # Getting Started with Create React App
 
+# Doctor-Patient-Appointment-System
+
+The Online Medical Appointment System allows patients to select a desired doctor appointment date through the online platform. 
+This project is developed using the MERN stack technology, incorporating various functionalities to create a professional website. 
+The project features a dynamic home page, admin and user dashboards, user login page with professional handling of all kinds of 
+validations, ability for a patient to select an appointment and view doctor information, as well as their own appointment information, 
+option to select a doctor and view appointment date, CRUD operations and additional features. 
+
+The website boasts a responsive design with a dynamic header and preloader.
+
+This application aspires to resolve patients cumbersome process of scheduling health appointments with available doctors at a given duty call.
+The application works for patients on the following features:
+1.	Patient can register details to the system for profile onboarding.
+2.	Patient can select booking dates in a year to schedule appointment with a doctor.
+3.	Patient can see available doctors on the selected dates of appointment.
+4.	Patient can select the desired doctor available based on the nature of the appointment.
+5.	Patient is directed to a secure payment page of the hospital to make payment.
+6.	A ticket is generated on successful payment at the gate way and sent to patient by email or phone number.
+
+The application works for doctors on the following features:
+1.	Doctor will login to their profile
+2.	Doctor can see patient appointments
+3.	Doctor can see level of severity of patient appointment.
+4.	Doctor can decide to confirm appointment or make quick remarks to patient appointment to be sent by email or telephone number.
+5.	Doctor can update patient diagnosis report on the system for future review and advice.
+6.	Doctor can schedule admission and treatment procedures.
+7.	Doctor can update their status to “available”, “not available”, “fully booked” and “available, but on essential duty”
+
+## What Features Will You Find Here?
+- Dynamic home page, serving as the landing page for all users.
+- Admin and user dashboards.
+- User login page with professional handling of all kinds of validations.
+- Ability for a patient to select an appointment and view doctor information, as well as their own appointment information.
+- Option to select a doctor and view appointment date.
+- CRUD operations and additional features.
+- Responsive design with a dynamic header and preloader.
+
+#### What Technology are Using In This Projects
+
+**Front End :** 
+- React
+- JavaScript(ES6)
+- React-Bootstrap
+- Html
+- css5
+- Material UI
+- React Animation
+- Preloader
+- Alert
+- Validation
+
+**Back-End:** 
+- MongoDb
+- Express
+- Cors
+- TypeScript
+- Body-Parse
+- Nodemon
+- ImageUploader 
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
