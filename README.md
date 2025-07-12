@@ -35,7 +35,7 @@ The application works for doctors on the following features:
 - CRUD operations and additional features.
 - Responsive design with a dynamic header and preloader.
 
-#### What Technology are Using In This Projects
+#### What Technologies are Used In This Projects
 
 **Front End :** 
 - React
@@ -56,7 +56,22 @@ The application works for doctors on the following features:
 - TypeScript
 - Body-Parse
 - Nodemon
-- ImageUploader 
+- ImageUploader
+
+Frontend Technology Stack:
+
+React: A JavaScript library for building user interfaces, offering a component-based architecture for creating interactive UIs.
+Redux Toolkit: A state management library for React applications, providing predictable state management with a single source of truth.
+Ant Design: A UI library for React applications, offering a set of customizable and pre-designed components.
+React Hook Form: A library for managing form state and validation in React applications, providing a simple and intuitive API.
+Axios: A promise-based HTTP client for making HTTP requests, used for interacting with backend APIs.
+
+
+Back-End:
+
+Express.js: A web application framework for Node.js, used for building robust APIs and web applications
+TypeScript: A superset of JavaScript that adds static typing, enhancing code quality and maintainability.
+Prisma: A modern database toolkit for Node.js and TypeScript, used for database access and management.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
