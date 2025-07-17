@@ -55,8 +55,8 @@ const Footer = () => {
 								<div className="footer-contact-info">
 									<div className="footer-address">
 										<i className="fas fa-map-marker-alt"></i>
-										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<p> 216, FullStack Developers Heaven,<br /> 7th Avenue, Abuja, Nigeria 07206 </p>
+										&nbsp;&nbsp;&nbsp;&nbsp;
+										&nbsp;&nbsp;&nbsp;&nbsp;<p> 216, FullStack Developers Heaven,<br /> 7th Avenue, Abuja, Nigeria 07206 </p>
 									</div>
 									<p>
 										<i className="fas fa-phone-alt"></i>
