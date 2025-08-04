@@ -94,9 +94,9 @@ const router = createBrowserRouter([
 function App() {
 
   useEffect(() => {
-    axios.get('http://localhost:5000/')
-      .then(res => console.log(res.data))
-      .catch(err => console.error(err));
+  axios.get(`${process.env.REACT_APP_API_BASE_URL}/`)
+    .then(res => console.log(res.data))
+    .catch(err => console.error(err));
   }, []);
 
   return (
