@@ -1,7 +1,7 @@
 import { instance } from './axiosInstance';
 
 // Replace this with your actual Render backend URL
-const renderBaseUrl = 'https://doctorpatientapi.onrender.com/api/v1';
+const renderBaseUrl = 'https://doctorpatientapi.onrender.com';
 
 export const axiosBaseQuery =
     ({ baseUrl } = { baseUrl: renderBaseUrl }) =>
