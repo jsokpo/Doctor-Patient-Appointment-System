@@ -1,7 +1,10 @@
 import { instance } from './axiosInstance';
 
+// Replace this with your actual Render backend URL
+const renderBaseUrl = 'https://doctorpatientapi.onrender.com/api/v1';
+
 export const axiosBaseQuery =
-    ({ baseUrl } = { baseUrl: '' }) =>
+    ({ baseUrl } = { baseUrl: renderBaseUrl }) =>
         async ({ url, method, data, params, headers }) => {
             try {
                 const result = await instance({
@@ -10,15 +13,15 @@ export const axiosBaseQuery =
                     data,
                     params,
                     headers: headers
-                })
-                return result
+                });
+                return result;
             } catch (axiosError) {
-                const err = axiosError
+                const err = axiosError;
                 return {
                     error: {
                         status: err.response?.status,
                         data: err.response?.data || err.message,
                     },
-                }
+                };
             }
-        }
+        };
