@@ -1,3 +1,4 @@
+/* Base Styles */
 .section-specialities {
 	background-color: rgb(243, 241, 241);
 	padding: 80px 0;
@@ -24,36 +25,18 @@
 	box-shadow: 2px 2px 13px rgba(0, 0, 0, 0.1);
 	border-radius: 100%;
 	background: #fff;
-	transition: 0.4s ease-in;
-}
-
-.speciality-item:hover .speciality-img {
-	transform: scale(1.1);
-	background: rgb(221, 221, 223);
-}
-
-.speciality-item:hover img {
-	background: none;
-	position: absolute;
-	top: 50%;
-	left: 0;
-	right: 0;
-	transform: translateY(-50%);
-	margin: 0 auto;
-}
-
-.speciality-item:hover p {
-	transform: scale(1.1);
-	color: #1977cc;
+	transition: transform 0.4s ease-in, background 0.4s ease-in;
+	overflow: hidden;
+	cursor: pointer;
 }
 
 .speciality-img img {
 	position: absolute;
 	top: 50%;
-	left: 0;
-	right: 0;
-	transform: translateY(-50%);
-	margin: 0 auto;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 70%;
+	transition: transform 0.4s ease-in;
 }
 
 .speciality-img span {
@@ -78,9 +61,26 @@
 	font-size: 16px;
 	font-weight: 500;
 	margin: 30px 0 0;
-	transition: 0.4s ease-in;
+	transition: transform 0.4s ease-in, color 0.4s ease-in;
+	text-align: center;
 }
 
+/* Hover Effects */
+.speciality-item:hover .speciality-img {
+	transform: scale(1.1);
+	background: rgb(221, 221, 223);
+}
+
+.speciality-item:hover .speciality-img img {
+	transform: translate(-50%, -50%) scale(1.1);
+}
+
+.speciality-item:hover p {
+	transform: scale(1.1);
+	color: #1977cc;
+}
+
+/* Responsive Styles */
 @media screen and (max-width: 768px) {
 	.section-specialities {
 		padding: 40px 0;
@@ -90,6 +90,10 @@
 	.speciality-img {
 		height: 100px;
 		width: 100px;
+	}
+
+	.speciality-img img {
+		width: 60%;
 	}
 
 	.speciality-img span i {
