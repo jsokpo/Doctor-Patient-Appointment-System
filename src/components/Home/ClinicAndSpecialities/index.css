@@ -1,4 +1,3 @@
-/* Base Styles */
 .section-specialities {
 	background-color: rgb(243, 241, 241);
 	padding: 80px 0;
@@ -6,10 +5,7 @@
 }
 
 .specialities-slider .slick-slide {
-	display: block;
 	padding: 0 12px;
-	margin-left: 0;
-	margin-right: 20px;
 	margin-top: 10px;
 }
 
@@ -18,15 +14,35 @@
 	position: unset;
 }
 
+.speciality-item {
+	text-align: center;
+	transition: transform 0.3s ease;
+}
+
+.speciality-item:hover .speciality-img {
+	transform: scale(1.1);
+	background-color: rgb(221, 221, 223);
+}
+
+.speciality-item:hover .speciality-img img {
+	transform: scale(1.1);
+}
+
+.speciality-item:hover p {
+	color: #1977cc;
+	transform: scale(1.1);
+}
+
 .speciality-img {
 	position: relative;
-	height: 150px;
 	width: 150px;
-	box-shadow: 2px 2px 13px rgba(0, 0, 0, 0.1);
-	border-radius: 100%;
-	background: #fff;
-	transition: transform 0.4s ease-in, background 0.4s ease-in;
+	height: 150px;
+	margin: 0 auto;
+	border-radius: 50%;
 	overflow: hidden;
+	background: #fff;
+	box-shadow: 2px 2px 13px rgba(0, 0, 0, 0.1);
+	transition: background-color 0.3s ease, transform 0.3s ease;
 	cursor: pointer;
 }
 
@@ -34,9 +50,9 @@
 	position: absolute;
 	top: 50%;
 	left: 50%;
-	transform: translate(-50%, -50%);
 	width: 70%;
-	transition: transform 0.4s ease-in;
+	transform: translate(-50%, -50%);
+	transition: transform 0.3s ease;
 }
 
 .speciality-img span {
@@ -47,7 +63,7 @@
 	border-radius: 50%;
 	padding: 5px;
 	background-color: #fff;
-	display: inline-flex;
+	display: flex;
 	align-items: center;
 	justify-content: center;
 }
@@ -60,27 +76,11 @@
 .speciality-item p {
 	font-size: 16px;
 	font-weight: 500;
-	margin: 30px 0 0;
-	transition: transform 0.4s ease-in, color 0.4s ease-in;
-	text-align: center;
+	margin-top: 30px;
+	transition: transform 0.3s ease, color 0.3s ease;
 }
 
-/* Hover Effects */
-.speciality-item:hover .speciality-img {
-	transform: scale(1.1);
-	background: rgb(221, 221, 223);
-}
-
-.speciality-item:hover .speciality-img img {
-	transform: translate(-50%, -50%) scale(1.1);
-}
-
-.speciality-item:hover p {
-	transform: scale(1.1);
-	color: #1977cc;
-}
-
-/* Responsive Styles */
+/* Responsive Design */
 @media screen and (max-width: 768px) {
 	.section-specialities {
 		padding: 40px 0;
@@ -88,8 +88,8 @@
 	}
 
 	.speciality-img {
-		height: 100px;
 		width: 100px;
+		height: 100px;
 	}
 
 	.speciality-img img {
@@ -102,11 +102,6 @@
 
 	.speciality-item p {
 		font-size: 14px;
-		margin: 20px 0 0;
-	}
-
-	.specialities-slider .slick-slide {
-		margin-right: 12px;
-		padding: 0 8px;
+		margin-top: 20px;
 	}
 }
