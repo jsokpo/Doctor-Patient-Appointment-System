@@ -3,82 +3,106 @@
 	padding: 80px 0;
 	margin: 7rem 0;
 }
+
 .specialities-slider .slick-slide {
-    display: block;
-    padding: 0 12px;
-    margin-left: 0;
-    margin-right: 20px;
+	display: block;
+	padding: 0 12px;
+	margin-left: 0;
+	margin-right: 20px;
 	margin-top: 10px;
 }
+
 .specialities-slider .slick-dots {
-    margin-top: 44px;
-    position: unset;
+	margin-top: 44px;
+	position: unset;
 }
-.speicality-img {
+
+.speciality-img {
 	position: relative;
 	height: 150px;
+	width: 150px;
 	box-shadow: 2px 2px 13px rgba(0, 0, 0, 0.1);
 	border-radius: 100%;
-	width: 150px;
 	background: #fff;
 	transition: 0.4s ease-in;
 }
 
-.speicality-item :hover {
+.speciality-item:hover .speciality-img {
 	transform: scale(1.1);
 	background: rgb(221, 221, 223);
 }
 
-.speicality-item :hover > img{
+.speciality-item:hover img {
 	background: none;
 	position: absolute;
 	top: 50%;
-	-ms-transform: translateY(-50%);
-	transform: translateY(-50%);
 	left: 0;
 	right: 0;
+	transform: translateY(-50%);
 	margin: 0 auto;
 }
 
-.speicality-item:hover p{
+.speciality-item:hover p {
 	transform: scale(1.1);
 	color: #1977cc;
 }
 
-.speicality-img img {
+.speciality-img img {
 	position: absolute;
 	top: 50%;
-	-ms-transform: translateY(-50%);
-	transform: translateY(-50%);
 	left: 0;
 	right: 0;
+	transform: translateY(-50%);
 	margin: 0 auto;
 }
-.speicality-img span {
-	-webkit-box-align: center;
-	-ms-flex-align: center;
-	align-items: center;
+
+.speciality-img span {
 	position: absolute;
-    bottom: 10px;
-    right: 10px;
-    box-shadow: 1px 6px 14px rgba(0,0,0,0.2);
-    border-radius: 50%;
-    padding: 5px;
-    background-color: #fff;
-	display: -webkit-inline-box;
-	display: -ms-inline-flexbox;
+	bottom: 10px;
+	right: 10px;
+	box-shadow: 1px 6px 14px rgba(0, 0, 0, 0.2);
+	border-radius: 50%;
+	padding: 5px;
+	background-color: #fff;
 	display: inline-flex;
+	align-items: center;
 	justify-content: center;
-	-webkit-justify-content: center;
-	-ms-flex-pack: center;
 }
-.speicality-img span i {
-    font-size: 15px;
-	color:#0de0fe;
+
+.speciality-img span i {
+	font-size: 15px;
+	color: #0de0fe;
 }
-.speicality-item p {
-    font-size: 16px;
-    font-weight: 500;
-    margin: 30px 0 0;
+
+.speciality-item p {
+	font-size: 16px;
+	font-weight: 500;
+	margin: 30px 0 0;
 	transition: 0.4s ease-in;
+}
+
+@media screen and (max-width: 768px) {
+	.section-specialities {
+		padding: 40px 0;
+		margin: 4rem 0;
+	}
+
+	.speciality-img {
+		height: 100px;
+		width: 100px;
+	}
+
+	.speciality-img span i {
+		font-size: 12px;
+	}
+
+	.speciality-item p {
+		font-size: 14px;
+		margin: 20px 0 0;
+	}
+
+	.specialities-slider .slick-slide {
+		margin-right: 12px;
+		padding: 0 8px;
+	}
 }
