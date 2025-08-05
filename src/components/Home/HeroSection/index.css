@@ -1,32 +1,30 @@
 #hero {
-  width: 100%;
-  height: 100vh;
-  background: url("../../../images/img/hero-bg.jpg") center center no-repeat;
-  background-size: contain;
-  background-color: #f5f5f5; /* fallback color if image fails */
-  position: relative;
-  margin-top: 80px;
-  margin-bottom: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+  background: url("../../../images/img/hero-bg.jpg") center center no-repeat;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  margin-top: 80px;
+  margin-bottom: 0;
+  padding: 20px;
+  z-index: 1;
 }
 
-/* Optional: Overlay effect */
+/* ❌ Removed the dimming overlay */
 #hero::before {
-  content: "";
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(255, 255, 255, 0.7); /* light overlay */
-  z-index: 1;
+  display: none;
 }
 
 #hero .container {
   position: relative;
   z-index: 2;
   text-align: center;
+  color: #2c4964;
   padding: 20px;
 }
 
@@ -40,9 +38,9 @@
 }
 
 #hero h2 {
-  color: #2c4964;
-  margin-top: 10px;
   font-size: 24px;
+  margin-top: 10px;
+  color: #2c4964;
 }
 
 #hero .btn-get-started {
@@ -64,53 +62,37 @@
   background: #3291e6;
 }
 
-/* Large Screens (Desktop) */
-@media (min-width: 1024px) {
+/* Mobile Responsive Behavior */
+@media (max-width: 768px) {
   #hero {
-    background-attachment: fixed;
+    background: none; /* Remove background image on mobile */
+    height: auto;
+    padding: 40px 0;
   }
-}
 
-/* Tablets and Below */
-@media (max-width: 992px) {
-  #hero {
-    height: 100vh;
-    background-size: contain;
+  #hero::before {
+    display: none;
+  }
+
+  #hero .mobile-image {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin-top: 20px;
   }
 
   #hero h1 {
-    font-size: 32px;
-    line-height: 40px;
+    font-size: 28px;
+    line-height: 36px;
   }
 
   #hero h2 {
     font-size: 18px;
-    line-height: 24px;
-    margin-bottom: 20px;
-  }
-}
-
-/* Very Small Devices */
-@media (max-width: 576px) {
-  #hero h1 {
-    font-size: 24px;
-    line-height: 30px;
-  }
-
-  #hero h2 {
-    font-size: 16px;
+    line-height: 26px;
   }
 
   #hero .btn-get-started {
-    font-size: 12px;
+    font-size: 13px;
     padding: 10px 25px;
-  }
-}
-
-/* Short Viewports */
-@media (max-height: 600px) {
-  #hero {
-    height: auto;
-    padding: 40px 0;
   }
 }
