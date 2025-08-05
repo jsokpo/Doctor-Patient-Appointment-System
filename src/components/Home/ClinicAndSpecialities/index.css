@@ -19,19 +19,24 @@
 	transition: transform 0.3s ease;
 }
 
-.speciality-item:hover .speciality-img {
-	transform: scale(1.1);
-	background-color: rgb(221, 221, 223);
+/* Remove image scaling on hover and apply dim */
+.speciality-item:hover .speciality-img img {
+	filter: brightness(0.7); /* dims the image */
+	/* You can also use: opacity: 0.6; if preferred */
+	transform: translate(-50%, -50%); /* keep centered */
 }
 
-.speciality-item:hover .speciality-img img {
-	transform: scale(1.1);
+/* Retain hover background and text scaling */
+.speciality-item:hover .speciality-img {
+	background: rgb(221, 221, 223);
+	/* Removed transform: scale(1.1); to prevent enlargement */
 }
 
 .speciality-item:hover p {
-	color: #1977cc;
 	transform: scale(1.1);
+	color: #1977cc;
 }
+
 
 .speciality-img {
 	position: relative;
