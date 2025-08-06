@@ -75,22 +75,7 @@ const Header = () => {
                         <ul>
                             <li><NavLink to="/" className={({ isActive }) => isActive ? "nav-link scrollto active" : ""}>Home</NavLink></li>
                             <li><NavLink to="/about" className={({ isActive }) => isActive ? "nav-link scrollto active" : ""}>About</NavLink></li>
-
-                            {/* Example Dropdown */}
-                            <li className="dropdown">
-                                <span
-                                    className="nav-link dropdown-toggle"
-                                    onClick={() => toggleDropdown("services")}
-                                    style={{ cursor: 'pointer' }}
-                                >
-                                    Services
-                                </span>
-                                <ul className={activeDropdown === "services" ? "dropdown-active" : ""}>
-                                    <li><NavLink to="/service/consultation">Consultation</NavLink></li>
-                                    <li><NavLink to="/service/surgery">Surgery</NavLink></li>
-                                </ul>
-                            </li>
-
+                            <li><NavLink to={'/service'} className={({ isActive }) => isActive ? "nav-link scrollto active" : ""}>Service</NavLink></li>
                             <li><NavLink to="/doctors" className={({ isActive }) => isActive ? "nav-link scrollto active" : ""}>Doctors</NavLink></li>
                             <li><NavLink to="/contact" className={({ isActive }) => isActive ? "nav-link scrollto active" : ""}>Contact</NavLink></li>
                             <li><NavLink to="/blog" className={({ isActive }) => isActive ? "nav-link scrollto active" : ""}>Blog</NavLink></li>
@@ -123,3 +108,19 @@ const Header = () => {
 };
 
 export default Header;
+
+
+/*{/* Example Dropdown */}
+                            <li className="dropdown">
+                                <span
+                                    className="nav-link dropdown-toggle"
+                                    onClick={() => toggleDropdown("services")}
+                                    style={{ cursor: 'pointer' }}
+                                >
+                                    Services
+                                </span>
+                                <ul className={activeDropdown === "services" ? "dropdown-active" : ""}>
+                                    <li><NavLink to="/service/consultation">Consultation</NavLink></li>
+                                    <li><NavLink to="/service/surgery">Surgery</NavLink></li>
+                                </ul>
+                            </li>*/
