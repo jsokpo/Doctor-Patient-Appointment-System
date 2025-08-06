@@ -108,19 +108,3 @@ const Header = () => {
 };
 
 export default Header;
-
-
-/*{/* Example Dropdown */}
-                            <li className="dropdown">
-                                <span
-                                    className="nav-link dropdown-toggle"
-                                    onClick={() => toggleDropdown("services")}
-                                    style={{ cursor: 'pointer' }}
-                                >
-                                    Services
-                                </span>
-                                <ul className={activeDropdown === "services" ? "dropdown-active" : ""}>
-                                    <li><NavLink to="/service/consultation">Consultation</NavLink></li>
-                                    <li><NavLink to="/service/surgery">Surgery</NavLink></li>
-                                </ul>
-                            </li>*/
