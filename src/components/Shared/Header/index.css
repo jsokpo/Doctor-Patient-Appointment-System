@@ -162,6 +162,17 @@
     visibility: visible;
 }
 
+.navbar .dropdown ul {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+}
+
+.navbar .dropdown .dropdown-active {
+  max-height: 300px;
+}
+
+
 @media (max-width: 1366px) {
     .navbar .dropdown .dropdown ul {
         left: -90%;
