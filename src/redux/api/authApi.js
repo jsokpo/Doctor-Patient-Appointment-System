@@ -9,46 +9,45 @@ export const authApi = baseApi.injectEndpoints({
             query: (loginData) => ({
                 url: `${AUTH_URL}/login`,
                 method: 'POST',
-                data: loginData,
+                body: loginData, // ✅ FIXED: use body, not data
             }),
             async onQueryStarted(arg, { queryFulfilled, dispatch }) {
                 try {
                     const result = (await queryFulfilled).data;
                     setUserInfo({ accessToken: result.accessToken });
-                } catch (error) {
-                }
+                } catch (error) {}
             },
         }),
         patientSignUp: build.mutation({
             query: (data) => ({
                 url: `/patient`,
                 method: 'POST',
-                data,
+                body: data, // ✅ FIXED
             }),
         }),
         doctorSignUp: build.mutation({
             query: (data) => ({
                 url: `/doctor`,
                 method: 'POST',
-                data,
+                body: data, // ✅ FIXED
             }),
         }),
         resetPassword: build.mutation({
             query: (data) => ({
                 url: `${AUTH_URL}/reset-password`,
                 method: 'POST',
-                data,
+                body: data, // ✅ FIXED
             }),
         }),
         resetConfirm: build.mutation({
             query: (data) => ({
                 url: `${AUTH_URL}/reset-password/confirm`,
                 method: 'POST',
-                data,
+                body: data, // ✅ FIXED
             }),
         }),
-    })
-})
+    }),
+});
 
 export const { 
     useUserLoginMutation, 
