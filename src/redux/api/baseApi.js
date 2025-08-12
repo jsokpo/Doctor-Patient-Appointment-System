@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 export const baseApi = createApi({
   reducerPath: 'api',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://doctorpatientapi.onrender.com/api/v1',
+    baseUrl: 'https://healthservicebackend.onrender.com/api/v1',
     prepareHeaders: (headers, { getState }) => {
       const token = getState().auth?.token;
       if (token) {
