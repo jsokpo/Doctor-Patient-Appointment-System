@@ -45,24 +45,42 @@ const SignUp = ({ setSignUp }) => {
         })
     }
     useEffect(() => {
-        // doctor account
-        if (dIsError && dError) {
-            setLoading(false)
-            setInfoError(dError.data.message)
-        }
-        if (!dIsError && dIsSuccess) {
-            handleSignUpSuccess();
-        }
-        // Patient account
-        if (pIsError && pError) {
-            setLoading(false)
-            setInfoError(pError.data.message)
-        }
-        if (!pIsError && pIsSuccess) {
-            handleSignUpSuccess();
-        }
+    // Doctor account
+    if (dIsError && dError) {
+        setLoading(false);
+        setInfoError(
+            dError?.data?.message || dError?.error || 'Unexpected error occurred'
+        );
+    }
+    if (!dIsError && dIsSuccess) {
+        handleSignUpSuccess();
+    }
 
-    }, [dIsError, dError, pError, pIsError, , pIsLoading, dIsLoading, pData, dData, setSignUp, setLoading, dIsSuccess])
+    // Patient account
+    if (pIsError && pError) {
+        setLoading(false);
+        setInfoError(
+            pError?.data?.message || pError?.error || 'Unexpected error occurred'
+        );
+    }
+    if (!pIsError && pIsSuccess) {
+        handleSignUpSuccess();
+    }
+
+}, [
+    dIsError,
+    dError,
+    pError,
+    pIsError,
+    pIsLoading,
+    dIsLoading,
+    pData,
+    dData,
+    setSignUp,
+    setLoading,
+    dIsSuccess
+]);
+
 
     const [emailError, setEmailError] = useState({
         emailError: false
