@@ -94,7 +94,7 @@ const router = createBrowserRouter([
 function App() {
 
   useEffect(() => {
-  axios.get(`${process.env.REACT_APP_API_URL}/`)
+  axios.get(`${process.env.REACT_APP_API_URL}`)
     .then(res => console.log(res.data))
     .catch(err => console.error(err));
   }, []);
