@@ -1,7 +1,7 @@
 import { tagTypes } from "../tag-types";
-import { baseApi } from "./baseApi"
+import { baseApi } from "./baseApi";
 
-const APPOINTMENT_URL = '/appointment'
+const APPOINTMENT_URL = '/appointment';
 
 export const appointmentApi = baseApi.injectEndpoints({
     endpoints: (build) => ({
@@ -9,7 +9,7 @@ export const appointmentApi = baseApi.injectEndpoints({
             query: (data) => ({
                 url: `${APPOINTMENT_URL}/create`,
                 method: 'POST',
-                data: data
+                body: data
             }),
             invalidatesTags: [tagTypes.appointments]
         }),
@@ -17,7 +17,7 @@ export const appointmentApi = baseApi.injectEndpoints({
             query: (data) => ({
                 url: `${APPOINTMENT_URL}/create-un-authenticate`,
                 method: 'POST',
-                data: data
+                body: data
             }),
             invalidatesTags: [tagTypes.appointments]
         }),
@@ -25,14 +25,14 @@ export const appointmentApi = baseApi.injectEndpoints({
             query: (data) => ({
                 url: `${APPOINTMENT_URL}/tracking`,
                 method: 'POST',
-                data: data
+                body: data
             })
         }),
         updateAppointment: build.mutation({
             query: ({ id, data }) => ({
                 url: `${APPOINTMENT_URL}/${id}`,
                 method: 'PATCH',
-                data: data
+                body: data
             }),
             invalidatesTags: [tagTypes.appointments]
         }),
@@ -87,7 +87,7 @@ export const appointmentApi = baseApi.injectEndpoints({
             providesTags: [tagTypes.appointments]
         })
     })
-})
+});
 
 export const { 
     useGetDoctorAppointmentsQuery,
