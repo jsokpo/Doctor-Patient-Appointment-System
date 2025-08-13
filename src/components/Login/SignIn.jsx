@@ -89,7 +89,7 @@ const SignIn = ({ handleResponse }) => {
                     </form>
             }
         </>
-    );
+    )
 };
 
 export default SignIn;
