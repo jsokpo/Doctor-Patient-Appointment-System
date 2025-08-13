@@ -31,7 +31,7 @@ export const authApi = baseApi.injectEndpoints({
     doctorSignUp: build.mutation({
       query: (data) => ({
         url: `/doctor`,
-        method: 'POST`,
+        method: 'POST',
         body: data,
       }),
       transformErrorResponse: (response, meta, arg) => prepareError(response),
