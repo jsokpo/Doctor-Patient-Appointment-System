@@ -24,4 +24,4 @@ router.post('/', upload.single('image'), (req, res) => {
   res.json({ imageUrl: `/uploads/${req.file.filename}` });
 });
 
-module.exports = router;
+module.exports = router
