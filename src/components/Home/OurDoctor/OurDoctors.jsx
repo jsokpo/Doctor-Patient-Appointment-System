@@ -1,53 +1,47 @@
-import './index.css';
-import { FaFacebookSquare, FaInstagramSquare, FaLinkedin } from "react-icons/fa";
-import { Empty } from 'antd';
-import { useGetDoctorsQuery } from '../../../redux/api/doctorApi';
+import { tagTypes } from "../tag-types";
+import { baseApi } from "./baseApi";
 
-const OurDoctors = () => {
-    const { data, isLoading, isError } = useGetDoctorsQuery({ limit: 4 });
-    const doctors = data?.doctors;
+const DOC_URL = "/doctor";
 
-    let content = null;
-    if (!isLoading && isError) content = <div>Something Went Wrong !</div>
-    if (!isLoading && !isError && doctors?.length === 0) content = <div><Empty /></div>
-    if (!isLoading && !isError && doctors?.length > 0) content =
-        <>
-            {
-                doctors && doctors?.map((item, key) => (
-                    <div class="col-lg-6 mt-3" key={key + 2}>
-                        <div class="member d-flex align-items-start">
-                            <div class="pic">
-                                {item.img && <img src={item.img} class="img-fluid" alt="" />}
-                            </div>
-                            <div class="member-info">
-                                <h4>{item?.firstName + ' ' + item?.lastName}</h4>
-                                <span>{item?.designation}</span>
-                                <p>{item?.specialization}</p>
-                                <div class="social">
-                                    <a><FaFacebookSquare className='icon' /></a>
-                                    <a><FaInstagramSquare className='icon' /></a>
-                                    <a><FaLinkedin className='icon' /></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                ))
-            }
-        </>
-    return (
-        <section id="doctors" class="doctors">
-            <div class="container">
-                <div class="section-title text-center mb-3">
-                    <h2>OUR DOCTORS</h2>
-                    <p className='form-text'>Our Doctors are growth-inclined to maintaining trust and competency on patient psychology to privacy and ethical conduct on health diagnosis. Book us today and experience our capacibilities.</p>
-                </div>
+export const doctorApi = baseApi.injectEndpoints({
+  endpoints: (build) => ({
+    getDoctors: build.query({
+      query: (params) => ({
+        url: DOC_URL,
+        method: "GET",
+        params,
+      }),
+      transformResponse: (response) => ({
+        doctors: response?.data || [],
+        meta: response?.meta || {},
+      }),
+      providesTags: [tagTypes.doctor],
+    }),
 
-                <div class="row">
-                    {content}
-                </div>
-            </div>
-        </section>
-    )
-}
+    getDoctor: build.query({
+      query: (id) => ({
+        url: `${DOC_URL}/${id}`,
+        method: "GET",
+      }),
+      providesTags: [tagTypes.doctor],
+    }),
 
-export default OurDoctors;
+    updateDoctor: build.mutation({
+      query: ({ data, id }) => ({
+        url: `${DOC_URL}/${id}`,
+        method: "PATCH",
+        body: data, // ✅ RTK Query expects "body"
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }),
+      invalidatesTags: [tagTypes.doctor],
+    }),
+  }),
+});
+
+export const {
+  useGetDoctorsQuery,
+  useGetDoctorQuery,
+  useUpdateDoctorMutation,
+} = doctorApi;
