@@ -1,3 +1,4 @@
+// src/redux/api/authApi.js (or .ts)
 import { setUserInfo } from "../../utils/local-storage";
 import { baseApi } from "./baseApi";
 
@@ -9,29 +10,21 @@ export const authApi = baseApi.injectEndpoints({
       query: (loginData) => ({
         url: `${AUTH_URL}/login`,
         method: "POST",
-        body: loginData, // ✅ correct for RTK Query
+        body: loginData, // ✅ fetchBaseQuery: use `body`
+        // If your baseApi uses Axios, swap to:
+        // data: loginData,
       }),
       async onQueryStarted(arg, { queryFulfilled }) {
         try {
-          const result = (await queryFulfilled).data;
-
-          // Save token + role/user info
+          const { data: result } = await queryFulfilled;
+          // store token/role for later use
           setUserInfo({
-            accessToken: result.accessToken,
-            role: result.role,
-            userId: result.userId,
+            accessToken: result?.accessToken,
+            role: result?.role,
+            userId: result?.userId,
           });
-
-          // ✅ Redirect after success (role based if needed)
-          if (result.role === "patient") {
-            window.location.href = "/patient/dashboard";
-          } else if (result.role === "doctor") {
-            window.location.href = "/doctor/dashboard";
-          } else {
-            window.location.href = "/dashboard";
-          }
-        } catch (error) {
-          console.error("Login failed", error);
+        } catch (err) {
+          console.error("Login failed", err);
         }
       },
     }),
@@ -40,7 +33,7 @@ export const authApi = baseApi.injectEndpoints({
       query: (data) => ({
         url: `/patient`,
         method: "POST",
-        body: data,
+        body: data, // or `data` if Axios baseQuery
       }),
     }),
 
@@ -48,7 +41,7 @@ export const authApi = baseApi.injectEndpoints({
       query: (data) => ({
         url: `/doctor`,
         method: "POST",
-        body: data,
+        body: data, // or `data` if Axios baseQuery
       }),
     }),
 
@@ -56,7 +49,7 @@ export const authApi = baseApi.injectEndpoints({
       query: (data) => ({
         url: `${AUTH_URL}/reset-password`,
         method: "POST",
-        body: data,
+        body: data, // or `data` if Axios baseQuery
       }),
     }),
 
@@ -64,7 +57,7 @@ export const authApi = baseApi.injectEndpoints({
       query: (data) => ({
         url: `${AUTH_URL}/reset-password/confirm`,
         method: "POST",
-        body: data,
+        body: data, // or `data` if Axios baseQuery
       }),
     }),
   }),
