@@ -34,7 +34,7 @@ const SignInForm = () => {
                 <div className="panel right-panel">
                     <div className="content">
                         <h3 className='text-white'>One of us ?</h3>
-                        <p>Feel free to lookup your profile and be productive with your descision!</p>
+                        <p>Feel free to lookup your profile and be affirmative with your descision!</p>
                         <button className="iBtn transparent" onClick={() => setSignUp(false)}>Sign In</button>
                     </div>
                     <img src={`${register}`} alt="" className="pImg" />
