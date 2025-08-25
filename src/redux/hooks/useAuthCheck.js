@@ -4,38 +4,61 @@ import { useGetPatientQuery } from "../api/patientApi";
 import { getUserInfo } from "../../service/auth.service";
 
 export default function useAuthCheck() {
-    const [authChecked, setAuthChecked] = useState(false);
-    const [userId, setUserId] = useState('');
-    const [isSkip, setIsSkip] = useState(true);
-    const [role, setRole] = useState("");
-    
-    // Queries
-    const { data: doctorData, isError: dIsError, isSuccess: dIsSuccess } = useGetDoctorQuery(userId, { skip: isSkip });
-    const { data: patientData, isError: pIsError, isSuccess: pIsSuccess } = useGetPatientQuery(userId, { skip: isSkip });
+  const [userId, setUserId] = useState("");
+  const [isSkip, setIsSkip] = useState(true);
+  const [role, setRole] = useState("");
+  const [authChecked, setAuthChecked] = useState(false);
 
-    useEffect(() => {
-        const localAuth = getUserInfo();
+  // Queries
+  const {
+    data: doctorData,
+    isError: dIsError,
+    isSuccess: dIsSuccess,
+    isLoading: dIsLoading,
+  } = useGetDoctorQuery(userId, { skip: isSkip });
 
-        if (localAuth && localAuth !== null) {
-            const normalizedRole = localAuth.role?.toLowerCase();
-            setRole(normalizedRole);
-            setUserId(localAuth?.userId);
-            setIsSkip(false);
-        }
-    }, []);
+  const {
+    data: patientData,
+    isError: pIsError,
+    isSuccess: pIsSuccess,
+    isLoading: pIsLoading,
+  } = useGetPatientQuery(userId, { skip: isSkip });
 
-    useEffect(() => {
-        if (role === "doctor" && dIsSuccess && !dIsError) {
-            setAuthChecked(true);
-        }
-        if (role === "patient" && pIsSuccess && !pIsError) {
-            setAuthChecked(true);
-        }
-    }, [role, dIsSuccess, dIsError, pIsSuccess, pIsError]);
+  // On mount: load local user info
+  useEffect(() => {
+    const localAuth = getUserInfo();
 
-    return {
-        authChecked,
-        data: role === "doctor" ? doctorData : patientData,
-        role
-    };
+    if (localAuth) {
+      const normalizedRole = localAuth.role?.toLowerCase();
+      setRole(normalizedRole);
+      setUserId(localAuth.userId);
+      setIsSkip(false);
+    }
+  }, []);
+
+  // Check if authenticated based on query status
+  useEffect(() => {
+    if (role === "doctor" && dIsSuccess && !dIsError) {
+      setAuthChecked(true);
+    }
+    if (role === "patient" && pIsSuccess && !pIsError) {
+      setAuthChecked(true);
+    }
+  }, [role, dIsSuccess, dIsError, pIsSuccess, pIsError]);
+
+  // Choose correct data only when available
+  let finalData = null;
+  if (role === "doctor" && dIsSuccess && doctorData) {
+    finalData = doctorData;
+  }
+  if (role === "patient" && pIsSuccess && patientData) {
+    finalData = patientData;
+  }
+
+  return {
+    authChecked,
+    role,
+    data: finalData,
+    isLoading: dIsLoading || pIsLoading,
+  };
 }
