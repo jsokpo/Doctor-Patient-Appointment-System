@@ -51,64 +51,45 @@ const router = createBrowserRouter([
   { path: '/service', element: <Service /> },
   { path: '/login', element: <SignInForm /> },
   { path: '/appointment', element: <AppointmentPage /> },
-  { path: '/track-appointment', element: <TrackAppointment /> },
+  {path: '/track-appointment', element: <TrackAppointment/>},
 
   { path: '/doctors', element: <SearchDoctor /> },
   { path: '/doctors/profile/:id', element: <DoctorProfile /> },
 
-  // ✅ Patient Dashboard
-  {
-    path: '/patient/dashboard',
-    element: <PrivateRoute><Dashboard /></PrivateRoute>,
-  },
-  {
-    path: '/patient/dashboard/favourite',
-    element: <PrivateRoute><PatientFavouriteDoctor /></PrivateRoute>,
-  },
-  {
-    path: '/patient/dashboard/profile-setting',
-    element: <PrivateRoute><ProfileSetting /></PrivateRoute>,
-  },
-  {
-    path: '/patient/dashboard/change-password',
-    element: <PrivateRoute><ChangePassword /></PrivateRoute>,
-  },
+  { path: '/dashboard', element: <Dashboard /> },
+  { path: '/dashboard/my-patients', element: <MyPatients /> },
+  { path: '/dashboard/reviews', element: <Reviews /> },
+  { path: '/dashboard/schedule', element: <Schedule /> },
+  { path: '/dashboard/appointments', element: <Appointments /> },
+  { path: '/dashboard/prescription', element: <Prescription /> },
+  { path: '/dashboard/prescription/:id', element: <PrescriptionView /> },
+  { path: '/dashboard/appointment/treatment/:id', element: <Treatment /> },
+  { path: '/dashboard/appointment/treatment/edit/:id', element: <TreatmentEdit /> },
 
-  // ✅ Doctor Dashboard
-  {
-    path: '/doctor/dashboard',
-    element: <PrivateRoute><Dashboard /></PrivateRoute>,
-  },
-  { path: '/doctor/dashboard/my-patients', element: <PrivateRoute><MyPatients /></PrivateRoute> },
-  { path: '/doctor/dashboard/reviews', element: <PrivateRoute><Reviews /></PrivateRoute> },
-  { path: '/doctor/dashboard/schedule', element: <PrivateRoute><Schedule /></PrivateRoute> },
-  { path: '/doctor/dashboard/appointments', element: <PrivateRoute><Appointments /></PrivateRoute> },
-  { path: '/doctor/dashboard/prescription', element: <PrivateRoute><Prescription /></PrivateRoute> },
-  { path: '/doctor/dashboard/prescription/:id', element: <PrivateRoute><PrescriptionView /></PrivateRoute> },
-  { path: '/doctor/dashboard/appointment/treatment/:id', element: <PrivateRoute><Treatment /></PrivateRoute> },
-  { path: '/doctor/dashboard/appointment/treatment/edit/:id', element: <PrivateRoute><TreatmentEdit /></PrivateRoute> },
-  { path: '/doctor/dashboard/invoices', element: <PrivateRoute><DoctorInvoice /></PrivateRoute> },
-  { path: '/doctor/dashboard/blogs', element: <PrivateRoute><Blogs /></PrivateRoute> },
-  { path: '/doctor/dashboard/blogs/:id', element: <PrivateRoute><BlogsEdit /></PrivateRoute> },
-  { path: '/doctor/dashboard/blogs/create', element: <PrivateRoute><AddBlog /></PrivateRoute> },
-  { path: '/doctor/dashboard/profile-setting', element: <PrivateRoute><ProfileSetting /></PrivateRoute> },
-  { path: '/doctor/dashboard/change-password', element: <PrivateRoute><ChangePassword /></PrivateRoute> },
+  { path: '/dashboard/change-password', element: <ChangePassword /> },
+  { path: '/dashboard/profile-setting', element: <ProfileSetting /> },
+  { path: '/dashboard/favourite', element: <PatientFavouriteDoctor /> },
+  { path: '/dashboard/invoices', element: <DoctorInvoice /> },
+  { path: '/dashboard/blogs', element: <Blogs /> },
+  { path: '/dashboard/blogs/:id', element: <BlogsEdit /> },
+  { path: '/dashboard/blogs/create', element: <AddBlog /> },
 
-  // Booking
   { path: '/booking/:doctorId', element: <DoctorBooking /> },
   { path: '/booking/success/:id', element: <BookingSuccess /> },
   { path: '/booking/invoice/:id', element: <BookingInvoice /> },
 
-  // Admin Dashboard
-  { path: '/admin/dashboard', element: <PrivateRoute><AdminDashboard /></PrivateRoute> },
-  { path: '/admin/appointments', element: <PrivateRoute><AdminAppointments /></PrivateRoute> },
-  { path: '/admin/doctors', element: <PrivateRoute><Doctors /></PrivateRoute> },
-  { path: '/admin/patients', element: <PrivateRoute><Patients /></PrivateRoute> },
-  { path: '/admin/profile', element: <PrivateRoute><Profile /></PrivateRoute> },
-  { path: '/admin/reviews', element: <PrivateRoute><AdminReviews /></PrivateRoute> },
-  { path: '/admin/transaction', element: <PrivateRoute><Transactions /></PrivateRoute> },
-  { path: '/admin/specialites', element: <PrivateRoute><Specialites /></PrivateRoute> },
-]);
+  // Dashboard
+  { path: '/admin/dashboard', element: <AdminDashboard /> },
+  { path: '/admin/appointments', element: <AdminAppointments /> },
+  { path: '/admin/doctors', element: <Doctors /> },
+  { path: '/admin/patients', element: <Patients /> },
+  { path: '/admin/profile', element: <Profile /> },
+  { path: '/admin/reviews', element: <AdminReviews /> },
+  { path: '/admin/transaction', element: <Transactions /> },
+  { path: '/admin/specialites', element: <Specialites /> },
+
+  // { path: '/appointment', element: <PrivateRoute><AppointMent /></PrivateRoute> },
+])
 
 function App() {
 
