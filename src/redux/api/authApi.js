@@ -1,9 +1,7 @@
 import { setUserInfo } from "../../utils/local-storage";
 import { baseApi } from "./baseApi";
-import { navigate } from "../../routes/navigate"; // 👈 custom wrapper for react-router-dom useNavigate
-// OR pass navigate in component instead
 
-const AUTH_URL = '/auth';
+const AUTH_URL = "/auth";
 
 export const authApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
@@ -11,7 +9,7 @@ export const authApi = baseApi.injectEndpoints({
       query: (loginData) => ({
         url: `${AUTH_URL}/login`,
         method: "POST",
-        body: loginData, // ✅ changed from data → body
+        body: loginData, // ✅ correct for RTK Query
       }),
       async onQueryStarted(arg, { queryFulfilled }) {
         try {
@@ -24,7 +22,7 @@ export const authApi = baseApi.injectEndpoints({
             userId: result.userId,
           });
 
-          // Redirect after success (role based if needed)
+          // ✅ Redirect after success (role based if needed)
           if (result.role === "patient") {
             window.location.href = "/patient/dashboard";
           } else if (result.role === "doctor") {
