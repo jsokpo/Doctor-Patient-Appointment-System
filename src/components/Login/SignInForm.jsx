@@ -25,7 +25,7 @@ const SignInForm = () => {
                 <div className="panel left-panel">
                     <div className="content">
                         <h3 className='text-white'>New here ?</h3>
-                        <p>Join our team and bring out the integrity and commitment in you!</p>
+                        <p>Join our membership registration and experience the quality service to health management!</p>
                         <button className="iBtn transparent" onClick={() => setSignUp(true)}>Sign Up</button>
                     </div>
                     <img src={`${log}`} alt="" className="pImg" />
