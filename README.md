@@ -58,6 +58,8 @@ The application works for doctors on the following features:
 - Nodemon
 - ImageUploader
 
+NOTE: Back-End has been hosted Seperated.
+
 Frontend Technology Stack:
 
 React: A JavaScript library for building user interfaces, offering a component-based architecture for creating interactive UIs.
