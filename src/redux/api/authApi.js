@@ -2,7 +2,7 @@
 import { setUserInfo } from "../../utils/local-storage";
 import { baseApi } from "./baseApi";
 
-const AUTH_URL = "/api/v1/auth";
+const AUTH_URL = "/auth";
 
 export const authApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
@@ -33,7 +33,7 @@ export const authApi = baseApi.injectEndpoints({
     // Patient signup
     patientSignUp: build.mutation({
       query: (data) => ({
-        url: `/api/v1/patient`,
+        url: `/patient`,
         method: "POST",
         body: data,
       }),
@@ -42,7 +42,7 @@ export const authApi = baseApi.injectEndpoints({
     // Doctor signup
     doctorSignUp: build.mutation({
       query: (data) => ({
-        url: `/api/v1/doctor`,
+        url: `/doctor`,
         method: "POST",
         body: data,
       }),
