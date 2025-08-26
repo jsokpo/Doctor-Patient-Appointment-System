@@ -1,27 +1,28 @@
-// src/redux/api/authApi.js (or .ts)
+// src/redux/api/authApi.js
 import { setUserInfo } from "../../utils/local-storage";
 import { baseApi } from "./baseApi";
 
-const AUTH_URL = "/auth";
+const AUTH_URL = "/api/v1/auth";
 
 export const authApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
+    // Login
     userLogin: build.mutation({
       query: (loginData) => ({
         url: `${AUTH_URL}/login`,
         method: "POST",
-        body: loginData, // ✅ fetchBaseQuery: use `body`
-        // If your baseApi uses Axios, swap to:
-        // data: loginData,
+        body: loginData, // ✅ if using fetchBaseQuery
+        // data: loginData, // ❌ only if using axiosBaseQuery
       }),
       async onQueryStarted(arg, { queryFulfilled }) {
         try {
           const { data: result } = await queryFulfilled;
-          // store token/role for later use
+
+          // ✅ Adjust keys to match your backend response
           setUserInfo({
-            accessToken: result?.accessToken,
+            accessToken: result?.accessToken || result?.token,
             role: result?.role,
-            userId: result?.userId,
+            userId: result?.userId || result?.user?.id,
           });
         } catch (err) {
           console.error("Login failed", err);
@@ -29,27 +30,30 @@ export const authApi = baseApi.injectEndpoints({
       },
     }),
 
+    // Patient signup
     patientSignUp: build.mutation({
       query: (data) => ({
-        url: `/patient`,
+        url: `/api/v1/patient`,
         method: "POST",
-        body: data, // or `data` if Axios baseQuery
+        body: data,
       }),
     }),
 
+    // Doctor signup
     doctorSignUp: build.mutation({
       query: (data) => ({
-        url: `/doctor`,
+        url: `/api/v1/doctor`,
         method: "POST",
-        body: data, // or `data` if Axios baseQuery
+        body: data,
       }),
     }),
 
+    // Reset password
     resetPassword: build.mutation({
       query: (data) => ({
         url: `${AUTH_URL}/reset-password`,
         method: "POST",
-        body: data, // or `data` if Axios baseQuery
+        body: data,
       }),
     }),
 
@@ -57,7 +61,7 @@ export const authApi = baseApi.injectEndpoints({
       query: (data) => ({
         url: `${AUTH_URL}/reset-password/confirm`,
         method: "POST",
-        body: data, // or `data` if Axios baseQuery
+        body: data,
       }),
     }),
   }),
