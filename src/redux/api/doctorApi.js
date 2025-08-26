@@ -1,7 +1,7 @@
 import { tagTypes } from "../tag-types";
 import { baseApi } from "./baseApi";
 
-const DOC_URL = '/doctor';
+const DOC_URL = '/api/v1/doctor'; // adjust if needed
 
 export const doctorApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
@@ -10,15 +10,9 @@ export const doctorApi = baseApi.injectEndpoints({
       query: (params) => ({
         url: DOC_URL,
         method: 'GET',
-        params, // fetchBaseQuery will handle this as query params
+        params,
       }),
-      transformResponse: (response) => {
-        // Adjust to match backend response structure
-        return {
-          doctors: response?.data || [],
-          meta: response?.meta || {}
-        };
-      },
+      transformResponse: (response) => response?.data || [],
       providesTags: [tagTypes.doctor],
     }),
 
@@ -36,10 +30,7 @@ export const doctorApi = baseApi.injectEndpoints({
       query: ({ id, data }) => ({
         url: `${DOC_URL}/${id}`,
         method: 'PATCH',
-        body: data, // ✅ fetchBaseQuery uses body, not data
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
+        body: data, // FormData or JSON
       }),
       invalidatesTags: [tagTypes.doctor],
     }),
