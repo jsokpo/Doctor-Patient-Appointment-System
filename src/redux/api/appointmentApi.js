@@ -1,104 +1,69 @@
+// src/redux/api/appointmentApi.js
 import { tagTypes } from "../tag-types";
 import { baseApi } from "./baseApi";
 
-const APPOINTMENT_URL = '/appointment';
+const APPT_URL = "/appointment";
 
 export const appointmentApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
-    createAppointment: build.mutation({
-      query: (data) => ({
-        url: `${APPOINTMENT_URL}/create`,
-        method: 'POST',
-        body: data, // ✅ FIXED
-      }),
-      invalidatesTags: [tagTypes.appointments],
-    }),
-    createAppointmentByUnauthenticateUser: build.mutation({
-      query: (data) => ({
-        url: `${APPOINTMENT_URL}/create-un-authenticate`,
-        method: 'POST',
-        body: data, // ✅ FIXED
-      }),
-      invalidatesTags: [tagTypes.appointments],
-    }),
-    trackAppointment: build.mutation({
-      query: (data) => ({
-        url: `${APPOINTMENT_URL}/tracking`,
-        method: 'POST',
-        body: data, // ✅ FIXED
-      }),
-    }),
-    updateAppointment: build.mutation({
-      query: ({ id, data }) => ({
-        url: `${APPOINTMENT_URL}/${id}`,
-        method: 'PATCH',
-        body: data, // ✅ FIXED
-      }),
-      invalidatesTags: [tagTypes.appointments],
-    }),
-    getPatientAppointments: build.query({
-      query: () => ({
-        url: `${APPOINTMENT_URL}/patient/appointments`,
-        method: 'GET',
-      }),
-      providesTags: [tagTypes.appointments],
-    }),
-    getSingleAppointment: build.query({
-      query: (id) => ({
-        url: `${APPOINTMENT_URL}/${id}`,
-        method: 'GET',
-      }),
-      providesTags: [tagTypes.appointments],
-    }),
-    getAppointmentedPaymentInfo: build.query({
-      query: (id) => ({
-        url: `${APPOINTMENT_URL}/patient-payment-info/${id}`,
-        method: 'GET',
-      }),
-      providesTags: [tagTypes.appointments],
-    }),
-    getDoctorAppointments: build.query({
+    // ✅ Fetch all appointments
+    getAppointments: build.query({
       query: (arg) => ({
-        url: `${APPOINTMENT_URL}/doctor/appointments`,
-        method: 'GET',
+        url: `${APPT_URL}`,
+        method: "GET",
         params: arg,
       }),
-      providesTags: [tagTypes.appointments],
-    }),
-    getDoctorPatients: build.query({
-      query: () => ({
-        url: `${APPOINTMENT_URL}/doctor/patients`,
-        method: 'GET',
+      transformResponse: (response) => ({
+        appointments: response.data,
+        meta: response.meta,
       }),
-      providesTags: [tagTypes.appointments],
+      providesTags: [tagTypes.appointment],
     }),
-    getPatientInvoices: build.query({
-      query: () => ({
-        url: `${APPOINTMENT_URL}/patient/invoices`,
-        method: 'GET',
+
+    // ✅ Fetch a single appointment
+    getAppointment: build.query({
+      query: (id) => ({
+        url: `${APPT_URL}/${id}`,
+        method: "GET",
       }),
-      providesTags: [tagTypes.appointments],
+      providesTags: [tagTypes.appointment],
     }),
-    getDoctorInvoices: build.query({
-      query: () => ({
-        url: `${APPOINTMENT_URL}/doctor/invoices`,
-        method: 'GET',
+
+    // ✅ Create appointment
+    createAppointment: build.mutation({
+      query: (data) => ({
+        url: `${APPT_URL}`,
+        method: "POST",
+        body: data, // FIX: use body (works for JSON or FormData)
       }),
-      providesTags: [tagTypes.appointments],
+      invalidatesTags: [tagTypes.appointment],
+    }),
+
+    // ✅ Update appointment
+    updateAppointment: build.mutation({
+      query: ({ id, data }) => ({
+        url: `${APPT_URL}/${id}`,
+        method: "PATCH",
+        body: data, // FIX: body not data
+      }),
+      invalidatesTags: [tagTypes.appointment],
+    }),
+
+    // ✅ Delete appointment
+    deleteAppointment: build.mutation({
+      query: (id) => ({
+        url: `${APPT_URL}/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: [tagTypes.appointment],
     }),
   }),
 });
 
 export const {
-  useGetDoctorAppointmentsQuery,
-  useGetPatientAppointmentsQuery,
-  useGetDoctorPatientsQuery,
+  useGetAppointmentsQuery,
+  useGetAppointmentQuery,
   useCreateAppointmentMutation,
-  useGetSingleAppointmentQuery,
-  useGetAppointmentedPaymentInfoQuery,
-  useGetPatientInvoicesQuery,
-  useGetDoctorInvoicesQuery,
   useUpdateAppointmentMutation,
-  useCreateAppointmentByUnauthenticateUserMutation,
-  useTrackAppointmentMutation,
+  useDeleteAppointmentMutation,
 } = appointmentApi;
