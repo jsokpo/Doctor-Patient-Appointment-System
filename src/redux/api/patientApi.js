@@ -1,7 +1,7 @@
 import { tagTypes } from "../tag-types";
 import { baseApi } from "./baseApi";
 
-const PAT_URL = '/api/v1/patient';
+const PAT_URL = '/patient';
 
 export const patientApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
