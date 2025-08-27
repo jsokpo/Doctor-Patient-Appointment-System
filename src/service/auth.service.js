@@ -1,23 +1,26 @@
-import {authKey} from '../constant/storageKey';
-import {decodeToken} from '../utils/jwt';
-import { getFromLocalStorage, setLocalStorage } from '../utils/local-storage';
-export const setUserInfo = ({ accessToken }) => {
-    return setLocalStorage(authKey, accessToken);
-}
+import { authKey } from "../constant/storageKey";
 
-export const getUserInfo = () => {
-    const authToken = getFromLocalStorage(authKey);
-    if (authToken) {
-        const decodedToken = decodeToken(authToken);
-        return decodedToken
-    } else {
-        return null
-    }
-}
-export const isLoggedIn = () => {
-    const authToken = getFromLocalStorage(authKey);
-    return !!authToken;
-}
+// Save token safely
+export const setUserInfo = ({ accessToken }) => {
+  if (typeof window !== "undefined") {
+    localStorage.setItem(authKey, accessToken);
+  }
+};
+
+// Get raw JWT (for Authorization header)
+export const getAccessToken = () => {
+  if (typeof window !== "undefined") {
+    return localStorage.getItem(authKey) || null;
+  }
+  return null;
+};
+
+// Check login state
+export const isLoggedIn = () => !!getAccessToken();
+
+// Logout
 export const loggedOut = () => {
-    return localStorage.removeItem(authKey)
-}
+  if (typeof window !== "undefined") {
+    localStorage.removeItem(authKey);
+  }
+};
