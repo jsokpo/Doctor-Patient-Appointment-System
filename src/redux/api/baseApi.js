@@ -9,18 +9,19 @@ export const baseApi = createApi({
     baseUrl: BASE_URL,
     prepareHeaders: (headers, { getState }) => {
       try {
-        // Safely read token from Redux state or localStorage
-        const token = getState()?.auth?.token || localStorage.getItem("token");
+        const token =
+          getState()?.auth?.token ||
+          (typeof window !== 'undefined' && localStorage.getItem('token'));
+
         if (token) {
           headers.set('authorization', `Bearer ${token}`);
         }
       } catch (err) {
-        // Avoid errors during SSR / build
-        console.warn("Token attach skipped:", err);
+        console.warn('Token attach skipped:', err);
       }
       return headers;
     },
   }),
-  tagTypes: Object.values(tagTypes), // ✅ make sure tagTypes is an object
+  tagTypes: Object.values(tagTypes),
   endpoints: () => ({}),
 });
