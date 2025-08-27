@@ -1,26 +1,40 @@
 import { authKey } from "../constant/storageKey";
 
-// Save token safely
+// Save JWT
 export const setUserInfo = ({ accessToken }) => {
-  if (typeof window !== "undefined") {
-    localStorage.setItem(authKey, accessToken);
+  try {
+    if (typeof window !== "undefined" && accessToken) {
+      window.localStorage.setItem(authKey, accessToken);
+    }
+  } catch (err) {
+    console.warn("localStorage not available (SSR or restricted)", err);
   }
 };
 
-// Get raw JWT (for Authorization header)
+// Get JWT
 export const getAccessToken = () => {
-  if (typeof window !== "undefined") {
-    return localStorage.getItem(authKey) || null;
+  try {
+    if (typeof window !== "undefined") {
+      return window.localStorage.getItem(authKey) || null;
+    }
+  } catch (err) {
+    console.warn("localStorage not available (SSR or restricted)", err);
   }
   return null;
 };
 
-// Check login state
-export const isLoggedIn = () => !!getAccessToken();
+// Check login
+export const isLoggedIn = () => {
+  return !!getAccessToken();
+};
 
 // Logout
 export const loggedOut = () => {
-  if (typeof window !== "undefined") {
-    localStorage.removeItem(authKey);
+  try {
+    if (typeof window !== "undefined") {
+      window.localStorage.removeItem(authKey);
+    }
+  } catch (err) {
+    console.warn("localStorage not available (SSR or restricted)", err);
   }
 };
