@@ -7,24 +7,20 @@ export const baseApi = createApi({
   reducerPath: 'api',
   baseQuery: fetchBaseQuery({
     baseUrl: BASE_URL,
-    credentials: 'include', // only if your backend uses cookies
     prepareHeaders: (headers, { getState }) => {
-      // Attach JWT if it exists in Redux state
-      const token = getState().auth?.token;
-      if (token) {
-        headers.set('authorization', `Bearer ${token}`);
+      try {
+        // Safely read token from Redux state or localStorage
+        const token = getState()?.auth?.token || localStorage.getItem("token");
+        if (token) {
+          headers.set('authorization', `Bearer ${token}`);
+        }
+      } catch (err) {
+        // Avoid errors during SSR / build
+        console.warn("Token attach skipped:", err);
       }
       return headers;
     },
   }),
-  tagTypes: [
-    tagTypes.appointments,
-    tagTypes.users,
-    tagTypes.doctors,
-    tagTypes.patients,
-    tagTypes.reviews,
-    tagTypes.blogs,
-    tagTypes.medicines,
-  ],
+  tagTypes: Object.values(tagTypes), // ✅ make sure tagTypes is an object
   endpoints: () => ({}),
 });
