@@ -1,17 +1,19 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+// src/redux/api/baseApi.js
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-export const baseApi = createApi({
-  reducerPath: 'api',
+const baseApi = createApi({
+  reducerPath: "baseApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://healthservicebackend.onrender.com/api/v1',
+    baseUrl: "https://healthservicebackend.onrender.com/api/v1",
     prepareHeaders: (headers, { getState }) => {
-      const token = getState().auth?.token;
+      const token = getState().auth?.token || localStorage.getItem("token"); 
       if (token) {
-        headers.set('Authorization', `Bearer ${token}`);
+        headers.set("authorization", `Bearer ${token}`);
       }
       return headers;
     },
   }),
-  tagTypes: ['doctor'],
   endpoints: () => ({}),
 });
+
+export default baseApi;
