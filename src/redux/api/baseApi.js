@@ -8,17 +8,24 @@ export const baseApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: BASE_URL,
     prepareHeaders: (headers, { getState }) => {
-      try {
-        const token =
-          getState()?.auth?.token ||
-          (typeof window !== 'undefined' && localStorage.getItem('token'));
+      // Always guard against SSR environment (no window/localStorage)
+      let token = null;
 
-        if (token) {
-          headers.set('authorization', `Bearer ${token}`);
-        }
-      } catch (err) {
-        console.warn('Token attach skipped:', err);
+      try {
+        token = getState()?.auth?.token;
+      } catch {
+        token = null;
       }
+
+      // If Redux has no token, check client-side localStorage safely
+      if (!token && typeof window !== 'undefined') {
+        token = localStorage.getItem('token');
+      }
+
+      if (token) {
+        headers.set('authorization', `Bearer ${token}`);
+      }
+
       return headers;
     },
   }),
