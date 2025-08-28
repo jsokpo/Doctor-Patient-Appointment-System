@@ -1,9 +1,8 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import img from '../../../images/doc/doctor3.jpg';
 import DashboardLayout from '../DashboardLayout/DashboardLayout';
 import { useGetDoctorPatientsQuery } from '../../../redux/api/appointmentApi';
-import { getAccessToken } from '../../../service/auth.service';
-import jwtDecode from 'jwt-decode';
+import { getAccessToken } from '../../../service/auth.service'; // 👈
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 import { FaClock, FaEnvelope, FaLocationArrow, FaPhoneAlt } from "react-icons/fa";
@@ -11,26 +10,12 @@ import { FaClock, FaEnvelope, FaLocationArrow, FaPhoneAlt } from "react-icons/fa
 const MyPatients = () => {
   const token = getAccessToken();
 
-  // ✅ decode JWT if available
-  const decoded = useMemo(() => {
-    if (!token) return null;
-    try {
-      const d = jwtDecode(token);
-      console.log("Raw JWT:", token);
-      console.log("Decoded payload:", d);
-      return d;
-    } catch (err) {
-      console.error("Invalid JWT:", err);
-      return null;
-    }
-  }, [token]);
-
-  // only run query if token is valid
-  const { data, isLoading, isError, error } = useGetDoctorPatientsQuery(undefined, { skip: !decoded });
+  // only run query if token is available
+  const { data, isLoading, isError, error } = useGetDoctorPatientsQuery(undefined, { skip: !token });
 
   let content;
 
-  if (!decoded) {
+  if (!token) {
     content = <div>Please login to view patients.</div>;
   }
   else if (isLoading) {
