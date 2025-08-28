@@ -2,31 +2,35 @@ import React from 'react';
 import img from '../../../images/doc/doctor3.jpg';
 import DashboardLayout from '../DashboardLayout/DashboardLayout';
 import { useGetDoctorPatientsQuery } from '../../../redux/api/appointmentApi';
+import { getAccessToken } from '../../../service/auth.service'; // 👈
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 import { FaClock, FaEnvelope, FaLocationArrow, FaPhoneAlt } from "react-icons/fa";
 
 const MyPatients = () => {
-  const { data, isLoading, isError, error } = useGetDoctorPatientsQuery();
+  const token = getAccessToken();
+
+  // only run query if token is available
+  const { data, isLoading, isError, error } = useGetDoctorPatientsQuery(undefined, { skip: !token });
 
   let content;
 
-  if (isLoading) {
+  if (!token) {
+    content = <div>Please login to view patients.</div>;
+  }
+  else if (isLoading) {
     content = <div>Loading patients...</div>;
   } 
   else if (isError) {
-    // Check if backend returned a structured error
     const errMsg = error?.data?.message || "Unable to fetch patients";
     content = <div>{errMsg}</div>;
   } 
   else {
-    // Sometimes backend returns { patients: [] } instead of []
     const patients = Array.isArray(data) ? data : data?.patients || [];
 
-    if (patients.length === 0) {
-      content = <div>No patients found</div>;
-    } else {
-      content = (
+    content = patients.length === 0
+      ? <div>No patients found</div>
+      : (
         <>
           {patients.map((item, idx) => (
             <div 
@@ -50,7 +54,6 @@ const MyPatients = () => {
           ))}
         </>
       );
-    }
   }
 
   return (
