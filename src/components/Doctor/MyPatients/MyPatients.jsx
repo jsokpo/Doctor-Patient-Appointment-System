@@ -2,40 +2,55 @@ import React from 'react';
 import img from '../../../images/doc/doctor3.jpg';
 import DashboardLayout from '../DashboardLayout/DashboardLayout';
 import { useGetDoctorPatientsQuery } from '../../../redux/api/appointmentApi';
-import { getAccessToken } from '../../../service/auth.service'; // 👈
+import { getAccessToken } from '../../../service/auth.service';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 import { FaClock, FaEnvelope, FaLocationArrow, FaPhoneAlt } from "react-icons/fa";
+import jwtDecode from "jwt-decode";
 
 const MyPatients = () => {
-  const token = getAccessToken();
+  const [token, setToken] = React.useState(null);
+
+  React.useEffect(() => {
+    const t = getAccessToken();
+    console.log("Token from storage:", t);
+
+    if (t) {
+      try {
+        const decoded = jwtDecode(t);
+        console.log("Decoded token:", decoded);
+      } catch (err) {
+        console.error("Invalid token:", err);
+      }
+    }
+
+    setToken(t);
+  }, []);
 
   // only run query if token is available
-  const { data, isLoading, isError, error } = useGetDoctorPatientsQuery(undefined, { skip: !token });
+  const { data, isLoading, isError, error } = useGetDoctorPatientsQuery(undefined, {
+    skip: !token,
+  });
 
   let content;
-
   if (!token) {
     content = <div>Please login to view patients.</div>;
-  }
-  else if (isLoading) {
+  } else if (isLoading) {
     content = <div>Loading patients...</div>;
-  } 
-  else if (isError) {
+  } else if (isError) {
     const errMsg = error?.data?.message || "Unable to fetch patients";
     content = <div>{errMsg}</div>;
-  } 
-  else {
+  } else {
     const patients = Array.isArray(data) ? data : data?.patients || [];
-
-    content = patients.length === 0
-      ? <div>No patients found</div>
-      : (
+    content =
+      patients.length === 0 ? (
+        <div>No patients found</div>
+      ) : (
         <>
           {patients.map((item, idx) => (
-            <div 
-              key={item?._id || idx} 
-              className="w-100 mb-3 rounded p-3 text-center" 
+            <div
+              key={item?._id || idx}
+              className="w-100 mb-3 rounded p-3 text-center"
               style={{ background: '#f8f9fa' }}
             >
               <Link to={'/'} className="my-3 patient-img">
