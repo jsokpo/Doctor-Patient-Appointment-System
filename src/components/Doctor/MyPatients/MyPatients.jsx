@@ -11,6 +11,7 @@ import jwtDecode from "jwt-decode";
 const MyPatients = () => {
   const [token, setToken] = React.useState(null);
 
+  // ✅ Runs only on client, avoids "window is not defined"
   React.useEffect(() => {
     const t = getAccessToken();
     console.log("Token from storage:", t);
@@ -24,10 +25,10 @@ const MyPatients = () => {
       }
     }
 
-    setToken(t);
+    setToken(t || null);
   }, []);
 
-  // only run query if token is available
+  // ✅ don't query until token is ready
   const { data, isLoading, isError, error } = useGetDoctorPatientsQuery(undefined, {
     skip: !token,
   });
