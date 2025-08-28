@@ -8,7 +8,6 @@ import { Toast } from 'react-bootstrap';
 import { useResetPasswordMutation, useUserLoginMutation } from '../../redux/api/authApi';
 import { message } from 'antd';
 import { useMessageEffect } from '../../utils/messageSideEffect';
-import { setUserInfo } from '../../service/auth.service';  // 👈 import storage helper
 
 const SignIn = ({ handleResponse }) => {
     const [showForgotPassword, setShowForgotPassword] = useState(false);
@@ -16,7 +15,7 @@ const SignIn = ({ handleResponse }) => {
     const [show, setShow] = useState(true);
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const navigate = useNavigate();
-    const [userLogin, { isError, isLoading, isSuccess, error, data }] = useUserLoginMutation();
+    const [userLogin, { isError, isLoading, isSuccess, error }] = useUserLoginMutation();
     const [forgotEmail, setForgotEmail] = useState('');
     const [resetPassword, { isError: resetIsError, isSuccess: resetIsSuccess, error: resetError, isLoading: resetIsLoading }] = useResetPasswordMutation();
 
@@ -24,89 +23,71 @@ const SignIn = ({ handleResponse }) => {
         setShow(false);
     }, 10000);
 
-    const onSubmit = async (formValues) => {
-        try {
-            await userLogin(formValues);  // this triggers RTK Query mutation
-        } catch (err) {
-            console.error("Login failed:", err);
-        }
-    };
+    const onSubmit = async (event) => {
+        userLogin({ ...event })
+    }
 
     const onHandleForgotPassword = async (e) => {
         e.preventDefault();
-        resetPassword({ email: forgotEmail });
+        resetPassword({ email: forgotEmail })
         setForgotEmail("");
         setShowForgotPassword(false);
-    };
-
-    useMessageEffect(resetIsLoading, resetIsSuccess, resetIsError, resetError, "Successfully Reset Password, Please check your Email!!");
-
+    }
+    useMessageEffect(resetIsLoading, resetIsSuccess, resetIsError, resetError, "Successfully Reset Password, Please check your Email!!")
     useEffect(() => {
         if (isError) {
-            message.error(error?.data?.message);
-            setInfoError(error?.data?.message);
+            message.error(error?.data?.message)
+            setInfoError(error?.data?.message)
         }
-        if (isSuccess && data) {
-            // ✅ Save JWT token here
-            if (data?.accessToken) {
-                setUserInfo({ accessToken: data.accessToken, persist: true });
-            }
+        if (isSuccess) {
             message.success('Successfully Logged in');
-            navigate('/');
+            navigate('/')
         }
-    }, [isError, error, isSuccess, data, navigate]);
+    }, [isError, error, isSuccess, navigate])
 
     const handleShowForgotPassword = () => {
         setShowForgotPassword(!showForgotPassword);
-    };
+    }
 
     return (
         <>
-            {showForgotPassword ? (
-                <form className="sign-in-form" onSubmit={onHandleForgotPassword}>
-                    <h2 className="title">Forgot Password</h2>
-                    <div>To Forgot Your Password Please Enter your email</div>
-                    <div className="input-field">
-                        <span className="fIcon"><FaEnvelope /></span>
-                        <input
-                            value={forgotEmail}
-                            onChange={(e) => setForgotEmail(e.target.value)}
-                            placeholder="Enter Your Email"
-                            type="email"
-                            required
-                        />
-                    </div>
-                    <div onClick={handleShowForgotPassword} className='text-bold' style={{ cursor: "pointer", color: '#4C25F5' }}>
-                        Still Remember Password ?
-                    </div>
-                    <button className="iBtn" type="submit" value="sign In">
-                        {resetIsLoading ? <Spinner animation="border" variant="info" /> : "Submit"}
-                    </button>
-                </form>
-            ) : (
-                <form className="sign-in-form" onSubmit={handleSubmit(onSubmit)}>
-                    <h2 className="title">Sign in</h2>
-                    <div className="input-field">
-                        <span className="fIcon"><FaEnvelope /></span>
-                        <input {...register("email", { required: true })} placeholder="Enter Your Email" type="email" />
-                    </div>
-                    {errors.email && <span className="text-danger">This field is required</span>}
-                    <div className="input-field">
-                        <span className="fIcon"><FaLock /></span>
-                        <input {...register("password", { required: true })} type="password" placeholder="Enter Your Password" />
-                    </div>
-                    {errors.password && <span className="text-danger">This field is required</span>}
-                    {infoError && <p className="text-danger">{infoError}</p>}
-                    <div onClick={handleShowForgotPassword} className='text-bold' style={{ cursor: "pointer", color: '#4C25F5' }}>
-                        Forgot Password ?
-                    </div>
-                    <button className="iBtn" type="submit" value="sign In">
-                        {isLoading ? <Spinner animation="border" variant="info" /> : "Sign In"}
-                    </button>
-                    <p className="social-text">Or Sign in with social platforms</p>
-                    <SocialSignUp handleResponse={handleResponse} />
-                </form>
-            )}
+            {
+                showForgotPassword
+                    ?
+                    <form className="sign-in-form" onSubmit={onHandleForgotPassword}>
+                        <h2 className="title">Forgot Password</h2>
+                        <div>To Forgot Your Password Please Enter your email</div>
+                        <div className="input-field">
+                            <span className="fIcon"><FaEnvelope /></span>
+                            <input value={forgotEmail !== undefined && forgotEmail} onChange={(e) => setForgotEmail(e.target.value)} placeholder="Enter Your Email" type="email" required />
+                        </div>
+                        <div onClick={handleShowForgotPassword} className='text-bold' style={{ cursor: "pointer", color: '#4C25F5' }}>Stil Remember Password ?</div>
+                        <button className="iBtn" type="submit" value="sign In" >
+                            {resetIsLoading ? <Spinner animation="border" variant="info" /> : "Submit"}
+                        </button>
+                    </form>
+                    :
+                    <form className="sign-in-form" onSubmit={handleSubmit(onSubmit)}>
+                        <h2 className="title">Sign in</h2>
+                        <div className="input-field">
+                            <span className="fIcon"><FaEnvelope /></span>
+                            <input {...register("email", { required: true })} placeholder="Enter Your Email" type="email" />
+                        </div>
+                        {errors.email && <span className="text-danger">This field is required</span>}
+                        <div className="input-field">
+                            <span className="fIcon"><FaLock /></span>
+                            <input {...register("password", { required: true })} type="password" placeholder="Enter Your Password" />
+                        </div>
+                        {errors.password && <span className="text-danger">This field is required</span>}
+                        {infoError && <p className="text-danger">{infoError}</p>}
+                        <div onClick={handleShowForgotPassword} className='text-bold' style={{ cursor: "pointer", color: '#4C25F5' }}>Forgot Password ?</div>
+                        <button className="iBtn" type="submit" value="sign In" >
+                            {isLoading ? <Spinner animation="border" variant="info" /> : "Sign In"}
+                        </button>
+                        <p className="social-text">Or Sign in with social platforms</p>
+                        <SocialSignUp handleResponse={handleResponse} />
+                    </form>
+            }
         </>
     );
 };
